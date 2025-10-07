@@ -66,7 +66,7 @@ Este proyecto aborda la tarea de predicción de series de tiempo para el consumo
 
 ---
 
-## 0. Prerequisitos
+## Prerequisitos
 
 ### Instalando y configurando DVC, para control de versiones de nuestros datasets
 
