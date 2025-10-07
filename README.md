@@ -22,15 +22,15 @@ El conjunto de datos **Power Consumption of Tetouan City** es una serie de tiemp
 
 | Variable Name | Rol | Tipo | Descripción | ¿Valores Faltantes? |
 | :--- | :--- | :--- | :--- | :--- |
-| `DateTime` | Feature | Date | Cada diez minutos | no |
-| `Temperature` | Feature | Continuous | Temperatura climática de la ciudad de Tetuán | no |
-| `Humidity` | Feature | Continuous | Humedad climática de la ciudad de Tetuán | no |
-| `Wind Speed` | Feature | Continuous | Velocidad del viento de la ciudad de Tetuán | no |
-| `general diffuse flows` | Feature | Continuous | Flujos difusos generales | no |
-| `diffuse flows` | Feature | Continuous | Flujos difusos | no |
-| `Zone 1 Power Consumption` | Target | Continuous | Consumo de energía de la zona 1 de la ciudad de Tetuán | no |
-| `Zone 2 Power Consumption` | Target | Continuous | Consumo de energía de la zona 2 de la ciudad de Tetuán | no |
-| `Zone 3 Power Consumption` | Target | Continuous | Consumo de energía de la zona 3 de la ciudad de Tetuán | no |
+| `DateTime` | Característica | Fecha | Cada diez minutos | no |
+| `Temperature` | Característica | Continua | Temperatura climática de la ciudad de Tetuán | no |
+| `Humidity` | Característica | Continua | Humedad climática de la ciudad de Tetuán | no |
+| `Wind Speed` | Característica | Continua | Velocidad del viento de la ciudad de Tetuán | no |
+| `general diffuse flows` | Característica | Continua | Flujos difusos generales | no |
+| `diffuse flows` | Característica | Continua | Flujos difusos | no |
+| `Zone 1 Power Consumption` | Destino | Continua | Consumo de energía de la zona 1 de la ciudad de Tetuán | no |
+| `Zone 2 Power Consumption` | Destino | Continua | Consumo de energía de la zona 2 de la ciudad de Tetuán | no |
+| `Zone 3 Power Consumption` | Destino | Continua | Consumo de energía de la zona 3 de la ciudad de Tetuán | no |
 
 ---
 
