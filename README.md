@@ -1,8 +1,82 @@
+# MNA_MLOps
+
+<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
+    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
+</a>
+
+Proyecto MLOps Equipo 43: Predicción del Consumo de Energía en la Ciudad de Tetuán, Marruecos.
+
+## Project Organization
+
+```
+├── LICENSE            <- Open-source license if one is chosen
+├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
+├── README.md          <- The top-level README for developers using this project.
+├── data
+│   ├── external       <- Data from third party sources.
+│   ├── interim        <- Intermediate data that has been transformed.
+│   ├── processed      <- The final, canonical data sets for modeling.
+│   └── raw            <- The original, immutable data dump.
+│
+├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+│
+├── models             <- Trained and serialized models, model predictions, or model summaries
+│
+├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+│                         the creator's initials, and a short `-` delimited description, e.g.
+│                         `1.0-jqp-initial-data-exploration`.
+│
+├── pyproject.toml     <- Project configuration file with package metadata for 
+│                         Project and configuration for tools like black
+│
+├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+│
+├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   └── figures        <- Generated graphics and figures to be used in reporting
+│
+├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+│                         generated with `pip freeze > requirements.txt`
+│
+├── setup.cfg          <- Configuration file for flake8
+│
+└── Project   <- Source code for use in this project.
+    │
+    ├── __init__.py             <- Makes Project a Python module
+    │
+    ├── config.py               <- Store useful variables and configuration
+    │
+    ├── dataset.py              <- Scripts to download or generate data
+    │
+    ├── features.py             <- Code to create features for modeling
+    │
+    ├── modeling                
+    │   ├── __init__.py 
+    │   ├── predict.py          <- Code to run model inference with trained models          
+    │   └── train.py            <- Code to train models
+    │
+    └── plots.py                <- Code to create visualizations
+```
+
+--------
+
+
 # ⚡️ Proyecto MLOps: Predicción del Consumo de Energía en la Ciudad de Tetuán (Marruecos)
 
 Este proyecto aborda la tarea de predicción de series de tiempo para el consumo de energía en Tetuán, Marruecos, utilizando un conjunto de datos público y aplicando un flujo de trabajo de Machine Learning (ML) detallado.
 
 ---
+
+## 0. Prerequisitos
+
+### Instalando y configurando DVC, para control de versiones de nuestros datasets
+
+1. Se instalaron las librerías dvc y dvc_gdrive, dentro de nuestro ambiente virtual.
+2. Se generó un repositorio (carpeta) dentro de Google Drive.
+3. Se creó una cuenta de Google Cloud Platform.
+4. Se creó un proyecto dentro de nuestra nueva cuenta.
+5. Se habilitó el API de Google Drive dentro de nuestro proyecto.
+6. Se creó y se configuró un Cliente OAuth.
+7. Se utilizaron las credenciales de este cliente para configurar DVC (con Google Drive) dentro del repositorio.
 
 ## 1. Descripción del Conjunto de Datos
 
