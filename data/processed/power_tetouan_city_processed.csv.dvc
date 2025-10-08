@@ -1,0 +1,5 @@
+outs:
+- md5: 9e5e5c879c9efa9f8f4ca60022492079
+  size: 4457088
+  hash: md5
+  path: power_tetouan_city_processed.csv
