@@ -151,14 +151,217 @@ Un `ColumnTransformer` fue configurado para manejar el conjunto de entrenamiento
 2.  **Escalado:** Se aplicó **MinMaxScaler** a las variables meteorológicas (e.g., `Temperature`, `Humidity`, `WindSpeed`) con un rango de $(1, 2)$.
 3.  **Variables Temporales:** Las características temporales creadas (`Day`, `Hour`, etc.) se pasaron directamente al modelo (`remainder='passthrough'`).
 
-### C. Modelo y Resultados
+### C. Modelos Implementados y Resultados
 
-Se utilizó el algoritmo **RandomForestRegressor** con hiperparámetros específicos (ej. `n_estimators=700`, `max_features=3`).
+Se implementaron y compararon **5 algoritmos diferentes** de Machine Learning:
 
-| Etapa | Métrica | Resultado |
-| :--- | :--- | :--- |
-| **Validación Cruzada** | RMSE (Repetido K-Fold) | $864.586 \pm 21.037$ |
-| **Evaluación Final (Test)** | RMSE (Error Cuadrático Medio Raíz) | $3736.559$ |
-| **Evaluación Final (Test)** | MAPE (Error Porcentual Absoluto Medio) | $11.222\%$ |
+1. **Random Forest Regressor**
+   - n_estimators: 700, max_features: 3
+   - Mejor para datos no lineales y temporales
 
-**Nota sobre los Resultados:** La diferencia entre el RMSE de Cross-Validation y el RMSE de la evaluación final del Test Set sugiere una posible **sobreestimación** del rendimiento durante el entrenamiento, o que el conjunto de prueba (los últimos meses del año) presenta patrones de consumo más difíciles de predecir.
+2. **ElasticNet**
+   - Regularización L1 + L2
+   - alpha: 0.1, l1_ratio: 0.5
+
+3. **Gradient Boosting Regressor**
+   - n_estimators: 500, learning_rate: 0.05
+   - Boosting secuencial
+
+4. **XGBoost Regressor** (opcional)
+   - Implementación optimizada de gradient boosting
+   - n_estimators: 500
+
+5. **Support Vector Regressor (SVR)**
+   - kernel: rbf, C: 100
+
+**Métricas de Evaluación:**
+- **RMSE**: Root Mean Squared Error (kW)
+- **MAE**: Mean Absolute Error (kW)
+- **MAPE**: Mean Absolute Percentage Error (%)
+- **R²**: Coeficiente de Determinación
+
+**Meta de Desempeño:**
+- RMSE < 4,000 kW
+- MAPE < 12%
+- R² > 0.90
+
+*Los resultados específicos de cada modelo se encuentran documentados en el notebook.*
+---
+
+## 4. Documentación del Proyecto
+
+### Documentos Disponibles
+
+1. **[Machine Learning Canvas](docs/ML_Canvas.md)**
+   - Metodología completa del proyecto siguiendo el framework ML Canvas
+   - Proposición de valor y objetivos del negocio
+   - Pipeline de datos y construcción del modelo
+   - Estrategia de predicción y evaluación
+   - Monitoreo en producción
+
+2. **[Guía de Versionamiento de Datos](docs/Data_Versioning.md)**
+   - Configuración de Git y DVC
+   - Workflows de versionamiento completos
+   - Convenciones de nomenclatura y commits
+   - Mejores prácticas
+   - Troubleshooting común
+
+3. **[Notebook Principal](notebooks/Fase%201_Equipo43.ipynb)**
+   - Secciones completamente documentadas:
+     - Análisis Exploratorio de Datos (EDA)
+     - Preprocesamiento detallado con justificaciones
+     - Implementación de 5 modelos de ML
+     - Comparación exhaustiva con visualizaciones
+     - Guía de reproducibilidad paso a paso
+     - Documentación de versionamiento integrada
+
+---
+
+## 5. Guía de Reproducibilidad
+
+### Requisitos del Sistema
+- Python 3.8+
+- Jupyter Notebook 6.0+
+- Git (DVC opcional)
+- 8GB RAM (16GB recomendado)
+
+### Instalación Rápida
+
+```bash
+# 1. Clonar repositorio
+git clone <repository-url>
+cd MNA_MLOps
+
+# 2. Crear y activar entorno virtual
+python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+
+# 3. Instalar dependencias
+pip install pandas numpy matplotlib seaborn scipy scikit-learn xgboost jupyter
+
+# 4. Ejecutar Jupyter
+jupyter notebook
+```
+
+### Paquetes Requeridos
+```
+pandas>=1.5.0
+numpy>=1.23.0
+matplotlib>=3.6.0
+seaborn>=0.12.0
+scipy>=1.9.0
+scikit-learn>=1.2.0
+xgboost>=1.7.0
+jupyter>=1.0.0
+```
+
+### Tiempo de Ejecución Estimado
+- **EDA y Preprocesamiento**: ~2-3 minutos
+- **Cross-Validation (5 modelos)**: ~10-15 minutos
+- **Entrenamiento final**: ~2-3 minutos
+- **Total**: ~15-20 minutos
+
+---
+
+## 6. Mejoras Implementadas - Fase 1
+
+### Completado
+
+1. **Machine Learning Canvas**
+   - Documento completo con todas las secciones
+   - Siguiendo metodología de Louis Dorard (2016)
+   - Incluye objetivos, pipeline, y estrategia de monitoreo
+
+2. **Modelos Múltiples**
+   - 5 algoritmos implementados y comparados
+   - Random Forest, ElasticNet, Gradient Boosting, XGBoost, SVR
+   - Evaluación con cross-validation y test set
+
+3. **Documentación de Preprocesamiento**
+   - Sección completa en el notebook
+   - Justificación de cada técnica aplicada
+   - Tablas de transformaciones y estadísticas
+
+4. **Comparación de Modelos**
+   - Evaluación exhaustiva con 4 métricas (RMSE, MAE, MAPE, R²)
+   - Visualizaciones comparativas
+   - Análisis de residuos del mejor modelo
+   - Identificación automática del mejor modelo
+
+5. **Guía de Reproducibilidad**
+   - Instrucciones paso a paso
+   - Configuración de entorno
+   - Solución de problemas comunes
+   - Tiempos de ejecución estimados
+
+6. **Versionamiento de Datos**
+   - Documentación completa de Git y DVC
+   - Workflows detallados
+   - Convenciones y mejores prácticas
+   - Integración en el notebook
+
+---
+
+## 7. Estructura de Archivos Clave
+
+```
+MNA_MLOps/
+│
+├── data/
+│   ├── raw/                                    # Datos originales (inmutables)
+│   │   ├── power_tetouan_city_original.csv
+│   │   └── power_tetouan_city_modified.csv
+│   └── processed/                              # Datos procesados
+│       └── power_tetouan_city_processed.csv    #  Dataset final
+│
+├── notebooks/
+│   └── Fase 1_Equipo43.ipynb                  #  Notebook principal
+│
+├── docs/
+│   ├── ML_Canvas.md                           #  Machine Learning Canvas
+│   ├── Data_Versioning.md                     #  Guía de versionamiento
+│   └── README.md
+│
+├── README.md                                   #  Este archivo
+└── .gitignore
+```
+
+---
+
+## 8. Próximos Pasos (Fases Futuras)
+
+- [ ] Despliegue del modelo (containerización con Docker)
+- [ ] API REST para predicciones
+- [ ] Monitoreo en producción con MLflow
+- [ ] CI/CD pipeline
+- [ ] Reentrenamiento automático
+- [ ] Dashboard de métricas en tiempo real
+
+---
+
+## 9. Referencias
+
+- **Dataset**: Salam, A., & El Hibaoui, A. (2023). Power Consumption of Tetouan City. UCI Machine Learning Repository.
+- **ML Canvas**: Dorard, L. (2016). Machine Learning Canvas. https://www.louisdorard.com/machine-learning-canvas
+- **DVC Documentation**: https://dvc.org/doc
+- **Scikit-learn**: https://scikit-learn.org/
+
+---
+
+## 10. Contacto
+
+**Equipo 43**
+- Alberto Campos Hernández (A01795645)
+- Oscar Enrique García García (A01016093)
+- Jessica Giovana García Gómez (A01795922)
+- Esteban Sebastián Guerra Espinoza (A01795897)
+- Rafael Sánchez Marmolejo (A00820345)
+
+**Institución**: Tecnológico de Monterrey
+**Curso**: Operaciones de Aprendizaje Automático (MLOps)
+**Profesores**: Dr. Gerardo Rodríguez Hernández, Mtro. Ricardo Valdez Hernández
+
+---
+
+**Última actualización**: Octubre 2025
+**Versión**: 1.0 - Fase 1 Completa
