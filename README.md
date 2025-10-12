@@ -445,3 +445,4 @@ Las contribuciones son bienvenidas. Por favor:
 **Proyecto desarrollado para MNA - Maestría en Inteligencia Artificial Aplicada**  
 **Equipo 43 - 2025**
 >>>>>>> main
+# Actualizado el Sat Oct 11 23:17:49 CST 2025
