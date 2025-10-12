@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # MNA_MLOps
 
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
