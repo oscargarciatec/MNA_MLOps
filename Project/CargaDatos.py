@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from pathlib import Path
 import pandas as pd
 
-class CargaArchivos:
+@dataclass
+class CargaDatasets:
     """Carga datasets crudos desde una carpeta.
 
     Parámetros
@@ -11,7 +12,7 @@ class CargaArchivos:
         Ruta a la carpeta que contiene los CSVs crudos.
     nombre_modificado: str
         Nombre del CSV "modificado". power_tetouan_city_modified.csv
-    """
+    """    
 
     carpeta_raw: Path
     nombre_modificado: str
