@@ -1,0 +1,41 @@
+artifact_path: mlflow-artifacts:/781331707748066146/models/m-966ab2499d2743eb9196536fb1aff51c/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.8
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+is_signature_from_type_hint: false
+mlflow_version: 3.3.2
+model_id: m-966ab2499d2743eb9196536fb1aff51c
+model_size_bytes: 2241628
+model_uuid: m-966ab2499d2743eb9196536fb1aff51c
+prompts: null
+run_id: 3cf604ce691c48f8aaef680015e1422d
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "Temperature", "required": true}, {"type":
+    "double", "name": "Humidity", "required": true}, {"type": "double", "name": "WindSpeed",
+    "required": true}, {"type": "double", "name": "GeneralDiffuseFlows", "required":
+    true}, {"type": "double", "name": "DiffuseFlows", "required": true}, {"type":
+    "long", "name": "Day", "required": true}, {"type": "long", "name": "Month", "required":
+    true}, {"type": "long", "name": "Hour", "required": true}, {"type": "long", "name":
+    "Minute", "required": true}, {"type": "long", "name": "DayWeek", "required": true},
+    {"type": "long", "name": "QuarterYear", "required": true}, {"type": "long", "name":
+    "DayYear", "required": true}]'
+  outputs: '[{"type": "double", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-10-31 00:03:36.399725'
