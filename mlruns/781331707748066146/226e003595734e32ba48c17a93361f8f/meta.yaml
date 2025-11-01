@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/781331707748066146/226e003595734e32ba48c17a93361f8f/artifacts
+deleted_time: 1761869094483
+end_time: 1761869072739
+entry_point_name: ''
+experiment_id: '781331707748066146'
+lifecycle_stage: deleted
+run_id: 226e003595734e32ba48c17a93361f8f
+run_name: GBR_PowerConsumption_Zone2_20251030_1803
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761869031068
+status: 3
+tags: []
+user_id: oscar.garcia

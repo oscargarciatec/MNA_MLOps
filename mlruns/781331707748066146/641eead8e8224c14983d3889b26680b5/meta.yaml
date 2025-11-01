@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/781331707748066146/641eead8e8224c14983d3889b26680b5/artifacts
+deleted_time: 1761868861327
+end_time: 1761867518673
+entry_point_name: ''
+experiment_id: '781331707748066146'
+lifecycle_stage: deleted
+run_id: 641eead8e8224c14983d3889b26680b5
+run_name: RFR_PowerConsumption_Zone2_20251030_1738
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761867483733
+status: 3
+tags: []
+user_id: oscar.garcia
