@@ -22,8 +22,8 @@ class ModeloEspecial:
     def __init__(
         self,
         model_path: str, # <--- File path for the saved pipeline
-        model: RegressorMixin = None, # <--- The unfitted model (optional if loading)
-        df: pd.DataFrame = None, # <--- The full training DF (optional if loading)
+        model: RegressorMixin = None,
+        df: pd.DataFrame = None,
         target: str = "PowerConsumption_Zone2",
         num_cols: Tuple = ('Temperature','Humidity','WindSpeed','GeneralDiffuseFlows','DiffuseFlows'),
         feature_range: Tuple = (1,2),
