@@ -11,7 +11,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: staging
+    environment: production
     
     # Permisos requeridos para la autenticación OIDC
     permissions:
@@ -40,7 +40,6 @@ jobs:
           export_default_credentials: true
 
       # 3. CONECTAR DOCKER A ARTIFACT REGISTRY
-      # Esto es CLAVE para resolver el error de "Unauthenticated request" en el push.
       - name: Configurar Docker para Artifact Registry
         run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev --quiet
       
