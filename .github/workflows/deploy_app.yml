@@ -11,6 +11,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: staging
     
     # Permisos requeridos para la autenticación OIDC
     permissions:
