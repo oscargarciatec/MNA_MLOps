@@ -116,12 +116,12 @@ class ModeloEspecial:
             mlflow.log_metric("r2_score", r2)
 
             # Log Model Artifact to MLFlow
-            mlflow.sklearn.log_model(
+            """mlflow.sklearn.log_model(
             sk_model=self.pipeline_,
             name="model", # Path inside the MLFlow run
             registered_model_name=f"{self.target}_Pipeline", # Optional: Register for deployment
             input_example=input_example
-            )
+            )"""
             mlflow.log_artifact(local_path=self.model_path, artifact_path="model")
             print(f"MLFlow Run ID: {mlflow.active_run().info.run_id}")
 

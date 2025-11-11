@@ -5,7 +5,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.base import RegressorMixin
 import pandas as pd
 import numpy as np
-import joblib # The library for saving/loading models
+import joblib
 import os
 from typing import Tuple
 import mlflow
@@ -21,9 +21,9 @@ class ModeloEspecial:
     
     def __init__(
         self,
-        model_path: str, # <--- File path for the saved pipeline
-        model: RegressorMixin = None, # <--- The unfitted model (optional if loading)
-        df: pd.DataFrame = None, # <--- The full training DF (optional if loading)
+        model_path: str,
+        model: RegressorMixin = None,
+        df: pd.DataFrame = None,
         target: str = "PowerConsumption_Zone2",
         num_cols: Tuple = ('Temperature','Humidity','WindSpeed','GeneralDiffuseFlows','DiffuseFlows'),
         feature_range: Tuple = (1,2),
@@ -42,10 +42,7 @@ class ModeloEspecial:
         # Initialize pipeline as None
         self.pipeline_ = None 
 
-        # Initial set for MLFlow
-        dagshub.init(repo_owner='garc1a0scar', repo_name='mna-mlops-team43', mlflow=True)
-        #mlflow.set_tracking_uri("https://dagshub.com/garc1a0scar/mna-mlops-team43.mlflow")
-        mlflow.set_experiment(self.exp)
+        
 
     def _setup_preprocessor(self):
         """Helper to create the preprocessing components."""
@@ -64,6 +61,11 @@ class ModeloEspecial:
         2. Fits the full pipeline (preprocessor + model).
         3. Saves the fitted pipeline to disk.
         """
+        # Initial set for MLFlow
+        dagshub.init(repo_owner='garc1a0scar', repo_name='mna-mlops-team43', mlflow=True)
+        mlflow.set_tracking_uri("https://dagshub.com/garc1a0scar/mna-mlops-team43.mlflow")
+        mlflow.set_experiment(self.exp)
+
         # 1. Prepare Data
         df.columns=['Temperature', 'Humidity', 'WindSpeed', 'GeneralDiffuseFlows',
                    'DiffuseFlows','PowerConsumption_Zone1',
@@ -115,10 +117,10 @@ class ModeloEspecial:
 
             # Log Model Artifact to MLFlow
             """mlflow.sklearn.log_model(
-                sk_model=self.pipeline_,
-                name="model", # Path inside the MLFlow run
-                registered_model_name=f"{self.target}_Pipeline", # Optional: Register for deployment
-                input_example=input_example
+            sk_model=self.pipeline_,
+            name="model", # Path inside the MLFlow run
+            registered_model_name=f"{self.target}_Pipeline", # Optional: Register for deployment
+            input_example=input_example
             )"""
             mlflow.log_artifact(local_path=self.model_path, artifact_path="model")
             print(f"MLFlow Run ID: {mlflow.active_run().info.run_id}")
