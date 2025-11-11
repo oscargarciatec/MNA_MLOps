@@ -21,7 +21,7 @@ class ModeloEspecial:
     
     def __init__(
         self,
-        model_path: str, # <--- File path for the saved pipeline
+        model_path: str,
         model: RegressorMixin = None,
         df: pd.DataFrame = None,
         target: str = "PowerConsumption_Zone2",

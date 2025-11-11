@@ -57,4 +57,8 @@ jobs:
       
       # 6. Desplegar la Imagen en Cloud Run
       - name: Desplegar a Cloud Run
-        uses: google-github-actions/deploy-cloudrun@v
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ vars.GCP_SERVICE_NAME }}
+          region: ${{ vars.GCP_REGION }}
+          image: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME }}/${{ vars.GCP_SERVICE_NAME }}:${{ github.sha }}
