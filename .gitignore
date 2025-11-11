@@ -326,3 +326,44 @@ artifacts/
 # Plotly cache
 .plotly/
 >>>>>>> main
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# DVC
+.dvc/cache/
+.dvc/tmp/
+.dvc/plots/
+
+# Data files (will be tracked by DVC)
+data/raw/*.csv
+data/processed/*.csv
+data/external/*.csv
+data/interim/*.csv
+
+# Model files
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/*.onnx
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+
+# Experiment artifacts
+experiments/
+artifacts/
+
+# Plotly cache
+.plotly/

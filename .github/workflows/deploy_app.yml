@@ -1,0 +1,64 @@
+name: CI/CD Cloud Run con Artifact Registry
+
+on:
+  push:
+    branches:
+      - main
+      - oscar
+    paths:
+      - 'app/**' # Se activa solo con cambios en la carpeta 'app/'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    # Permisos requeridos para la autenticación OIDC
+    permissions:
+      contents: 'read'
+      id-token: 'write' 
+
+    steps:
+      - name: Checkout del Repositorio
+        uses: actions/checkout@v4
+
+      # 1. Autenticación en Google Cloud (Usando WIF)
+      - name: Autenticación en Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          # Usa la Variable de Repositorio para la ruta del proveedor WIF
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          # Usa el Secreto de Repositorio para la cuenta de servicio
+          service_account: ${{ secrets.GCP_SA_EMAIL }} 
+
+      # 2. Configurar gcloud CLI
+      - name: Configurar gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          export_default_credentials: true
+
+      # 3. CONECTAR DOCKER A ARTIFACT REGISTRY
+      - name: Configurar Docker para Artifact Registry
+        run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev --quiet
+      
+      # 4. Construir la Imagen de Docker
+      - name: Construir Imagen
+        run: |
+          IMAGE_TAG=${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME }}/${{ vars.GCP_SERVICE_NAME }}:${{ github.sha }}
+          docker build -t $IMAGE_TAG ./app
+      
+      # 5. Enviar la Imagen a Artifact Registry
+      - name: Enviar a Artifact Registry
+        run: |
+          IMAGE_TAG=${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME }}/${{ vars.GCP_SERVICE_NAME }}:${{ github.sha }}
+          docker push $IMAGE_TAG
+      
+      # 6. Desplegar la Imagen en Cloud Run
+      - name: Desplegar a Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ vars.GCP_SERVICE_NAME }}
+          region: ${{ vars.GCP_REGION }}
+          image: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME }}/${{ vars.GCP_SERVICE_NAME }}:${{ github.sha }}

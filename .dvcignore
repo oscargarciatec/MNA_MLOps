@@ -1,3 +1,44 @@
 # Add patterns of files dvc should ignore, which could improve
 # the performance. Learn more at
 # https://dvc.org/doc/user-guide/dvcignore
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# MLflow artifacts (tracked separately)
+mlruns/
+mlartifacts/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Test outputs
+.pytest_cache/
+.coverage
