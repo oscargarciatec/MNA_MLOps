@@ -1,0 +1,54 @@
+name: CI/CD Cloud Run Multienv
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+
+jobs:
+  # Job 1: Despliegue en Staging
+  deploy-staging:
+    name: Desplegar en Staging
+    runs-on: ubuntu-latest
+    
+    # 🚨 ASIGNAR ENTORNO
+    environment: staging 
+    
+    permissions:
+      contents: 'read'
+      id-token: 'write' 
+
+    steps:
+      - name: Checkout del Repositorio
+        uses: actions/checkout@v4
+
+      # Autenticación. Nota: Los secrets y vars se toman automáticamente
+      # del entorno 'staging'
+      - name: Autenticación en Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          # Se usa el VAR global para la ruta WIF
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          # Se usa el SECRET del entorno 'staging'
+          service_account: ${{ secrets.GCP_SA_EMAIL }} 
+
+      # Configurar gcloud y Desplegar (usando variables del entorno 'staging')
+      - name: Configurar y Desplegar
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+
+      - name: Build and Push (Staging)
+        run: |
+          IMAGE_TAG=${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME }}/${{ vars.GCP_SERVICE_NAME }}:${{ github.sha }}
+          docker build -t $IMAGE_TAG ./app
+          docker push $IMAGE_TAG
+
+      - name: Deploy a Cloud Run (Staging)
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ vars.GCP_SERVICE_NAME }}
+          region: ${{ vars.GCP_REGION }}
+          image: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME }}/${{ vars.GCP_SERVICE_NAME }}:${{ github.sha }}
