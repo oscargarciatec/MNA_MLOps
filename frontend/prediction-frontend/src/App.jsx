@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const API_BASE_URL = 'https://power-predictor-api-148902248893.us-east1.run.app'; 
+const API_BASE_URL = 'https://power-predictor-api-148902248893.us-east1.run.app'; // URL
 
 function PredictionForm() {
     const [formData, setFormData] = useState({

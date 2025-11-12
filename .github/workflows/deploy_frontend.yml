@@ -31,13 +31,12 @@ jobs:
 
       - name: Desplegar a Netlify
         uses: nwtgck/actions-netlify@v2
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
           # Carpeta donde Vite/React generó los archivos finales
           publish-dir: './frontend/prediction-frontend/dist' 
-          
-          # Configuración de los Secrets de Netlify
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
           
           # La branch 'main' será la producción (puedes cambiar esto si 'oscar' es la de producción)
           production-branch: main 
