@@ -25,13 +25,13 @@ jobs:
         run: |
           npm install
           npm run build
-        working-directory: ./prediction-frontend
+        working-directory: ./frontend/prediction-frontend
 
       - name: Desplegar a Netlify
         uses: nwtgck/actions-netlify@v2
         with:
           # Carpeta donde Vite/React generó los archivos finales
-          publish-dir: './prediction-frontend/dist' 
+          publish-dir: './frontend/prediction-frontend/dist' 
           
           # Configuración de los Secrets de Netlify
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
