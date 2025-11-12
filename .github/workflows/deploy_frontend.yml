@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     environment: production
-    
     steps:
       - name: Checkout del Código
         uses: actions/checkout@v4
