@@ -1,0 +1,44 @@
+name: Despliegue Continuo a Netlify (Frontend)
+
+on:
+  push:
+    branches:
+      - main
+      - oscar
+    paths:
+      - 'frontend/**' 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment: production
+    steps:
+      - name: Checkout del Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar Dependencias y Construir la Aplicación (Build)
+        run: |
+          npm install
+          npm run build
+        working-directory: ./frontend/prediction-frontend
+
+      - name: Desplegar a Netlify
+        uses: nwtgck/actions-netlify@v2
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        with:
+          # Carpeta donde Vite/React generó los archivos finales
+          publish-dir: './frontend/prediction-frontend/dist' 
+          
+          # La branch 'main' será la producción (puedes cambiar esto si 'oscar' es la de producción)
+          production-branch: main 
+          
+          # Crea una URL de previsualización para cualquier branch que no sea 'main'
+          deploy-preview: true

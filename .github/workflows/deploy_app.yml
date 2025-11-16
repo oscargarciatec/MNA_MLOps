@@ -6,7 +6,7 @@ on:
       - main
       - oscar
     paths:
-      - 'app/**' # Se activa solo con cambios en la carpeta 'app/'
+      - 'app/**'
 
 jobs:
   deploy:
