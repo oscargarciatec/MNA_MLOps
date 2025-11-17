@@ -122,12 +122,15 @@ class ModeloEspecial:
             registered_model_name=f"{self.target}_Pipeline", # Optional: Register for deployment
             input_example=input_example
             )"""
-            mlflow.log_artifact(local_path=self.model_path, artifact_path="model")
-            print(f"MLFlow Run ID: {mlflow.active_run().info.run_id}")
 
-            # 3. Save the Fitted Pipeline
+            # Save the Fitted Pipeline
             joblib.dump(self.pipeline_, self.model_path)
             print(f"Model successfully saved to: {self.model_path}")
+
+            print(f"Uploading artifacts...")
+
+            mlflow.log_artifact(local_path=self.model_path, artifact_path="model")
+            print(f"MLFlow Run ID: {mlflow.active_run().info.run_id}")
 
             print(f"\nModel performance on the x_test dataset:")
             print(f"Test RMSE: {rmse:.3f}")

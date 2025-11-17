@@ -15,7 +15,7 @@ class CargaDatasets:
     """    
 
     carpeta_raw: Path
-    nombre_modificado: str
+    nombre_archivo: str
 
     def __post_init__(self) -> None:
         self.carpeta_raw = Path(self.carpeta_raw)
@@ -24,7 +24,7 @@ class CargaDatasets:
     def leer(self) -> pd.DataFrame:
         na_vals = ["nan", "NAN", "NaT", ""]
         df_modificado = pd.read_csv(
-            self.carpeta_raw / self.nombre_modificado,
+            self.carpeta_raw / self.nombre_archivo,
             na_values=na_vals,
             keep_default_na=True,
         )
