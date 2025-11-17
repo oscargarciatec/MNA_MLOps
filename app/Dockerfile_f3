@@ -1,0 +1,51 @@
+# Dockerfile para la API de predicción de consumo energético - Fase 3
+# Uso: docker build -f app/Dockerfile_f3 -t ml-service-f3:latest .
+#      docker run -p 8000:8000 ml-service-f3:latest
+
+FROM python:3.9-slim
+
+# Etiquetas de metadatos
+LABEL maintainer="Equipo 43 - MLOps"
+LABEL version="3.0.0"
+LABEL description="API de predicción de consumo energético - Fase 3"
+
+# Variables de entorno
+ENV PYTHONUNBUFFERED=True \
+    PYTHONDONTWRITEBYTECODE=True \
+    PIP_NO_CACHE_DIR=True \
+    PIP_DISABLE_PIP_VERSION_CHECK=True \
+    APP_HOME=/app
+
+# Crear directorio de trabajo
+WORKDIR $APP_HOME
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear archivo de requirements específico para el contenedor
+COPY requirements_f3.txt .
+
+# Instalar dependencias de Python
+RUN pip install --no-cache-dir -r requirements_f3.txt
+
+# Copiar código fuente
+COPY app/api_f3.py app/
+COPY app/best_model_pipeline.joblib app/
+COPY Project/ Project/
+
+# Crear usuario no-root para seguridad
+RUN useradd --create-home --shell /bin/bash app_user && \
+    chown -R app_user:app_user $APP_HOME
+USER app_user
+
+# Puerto que expone la aplicación
+EXPOSE 8000
+
+# Comando de inicio
+CMD ["uvicorn", "app.api_f3:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Para desarrollo local con recarga automática:
+# CMD ["uvicorn", "app.api_f3:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
