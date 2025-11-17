@@ -1,0 +1,142 @@
+# Proyecto MLOps Mejorado - Predicción de Energía Eléctrica
+# Equipo 43 - MNA
+
+project:
+  name: "prediccion_energia_tetouan"
+  version: "1.0.0"
+  description: "MLOps pipeline para predicción de consumo energético en Tetuán"
+  team: "Equipo 43"
+
+# Configuración de datos
+data:
+  raw_data_path: "data/raw/"
+  processed_data_path: "data/processed/"
+  external_data_path: "data/external/"
+  interim_data_path: "data/interim/"
+  
+  # Archivos específicos
+  main_dataset: "power_tetouan_city_modified.csv"
+  processed_dataset: "power_tetouan_city_processed.csv"
+  
+  # Configuración de validación
+  validation:
+    required_columns: ["DateTime", "Temperature", "Humidity", "Wind Speed", "general diffuse flows", "diffuse flows", "Power Consumption"]
+    datetime_column: "DateTime"
+    target_column: "Power Consumption"
+    max_missing_percentage: 0.05
+
+# Configuración de preprocesamiento
+preprocessing:
+  # División de datos
+  train_size: 0.7
+  validation_size: 0.15
+  test_size: 0.15
+  
+  # Estrategia temporal para series de tiempo
+  time_based_split: true
+  
+  # Escalado
+  scaling_method: "robust"  # robust, standard, minmax
+  
+  # Manejo de valores faltantes
+  missing_strategy: "interpolate"  # drop, interpolate, forward_fill
+
+# Configuración de ingeniería de características
+feature_engineering:
+  # Características temporales
+  temporal_features:
+    - "hour"
+    - "day_of_week"
+    - "month"
+    - "season"
+    - "is_weekend"
+  
+  # Características de lag
+  lag_features:
+    target_lags: [1, 2, 3, 6, 12, 24]
+    feature_lags: [1, 3, 6]
+  
+  # Estadísticas móviles
+  rolling_features:
+    windows: [3, 6, 12, 24]
+    stats: ["mean", "std", "min", "max"]
+  
+  # Interacciones
+  interaction_features: true
+
+# Configuración de modelos
+models:
+  algorithms:
+    - name: "random_forest"
+      params:
+        n_estimators: [100, 200, 300]
+        max_depth: [10, 20, 30, null]
+        min_samples_split: [2, 5, 10]
+    
+    - name: "xgboost"
+      params:
+        n_estimators: [100, 200, 300]
+        max_depth: [3, 6, 10]
+        learning_rate: [0.01, 0.1, 0.2]
+    
+    - name: "lightgbm"
+      params:
+        n_estimators: [100, 200, 300]
+        max_depth: [3, 6, 10]
+        learning_rate: [0.01, 0.1, 0.2]
+    
+    - name: "elasticnet"
+      params:
+        alpha: [0.1, 1.0, 10.0]
+        l1_ratio: [0.1, 0.5, 0.7, 0.9]
+
+# Configuración de evaluación
+evaluation:
+  metrics:
+    - "rmse"
+    - "mae"
+    - "mape"
+    - "r2"
+  
+  cross_validation:
+    method: "time_series_split"
+    n_splits: 5
+  
+  # Umbral de performance mínima
+  performance_threshold:
+    rmse_max: 50.0
+    r2_min: 0.85
+
+# Configuración de MLflow
+mlflow:
+  tracking_uri: "mlruns"
+  experiment_name: "energia_tetouan_prediction"
+  artifact_location: "models"
+  
+  # Autolog
+  autolog: true
+  
+  # Tags por defecto
+  default_tags:
+    team: "Equipo43"
+    project: "MNA_MLOps"
+    dataset: "tetouan_energy"
+
+# Configuración de DVC
+dvc:
+  remote_storage: "local"
+  cache_dir: ".dvc/cache"
+  
+# Configuración de logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/pipeline.log"
+
+# Configuración de visualización
+visualization:
+  figsize: [12, 8]
+  style: "whitegrid"
+  palette: "husl"
+  save_format: "png"
+  dpi: 300
