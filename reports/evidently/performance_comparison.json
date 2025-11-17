@@ -1,0 +1,28 @@
+{
+  "baseline": {
+    "dataset": "Baseline (No Drift)",
+    "samples": 10484,
+    "rmse": 3237.2377188216174,
+    "mae": 2563.3279189391405,
+    "r2": 0.6477668279527272,
+    "mape": 10.220450518718433
+  },
+  "drift": {
+    "dataset": "Drift (Temperature +5\u00b0C)",
+    "samples": 5000,
+    "rmse": 3225.213067757451,
+    "mae": 2495.7794035364027,
+    "r2": 0.655095760917422,
+    "mape": 9.92719367435083
+  },
+  "degradation": {
+    "rmse_pct": -0.37144788577786214,
+    "mae_pct": -2.6351882216729217,
+    "r2_pct": -1.1314152945833906
+  },
+  "thresholds_exceeded": {
+    "rmse": false,
+    "mae": false,
+    "r2": false
+  }
+}

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import pandas as pd
 from pathlib import Path
-from Project.CargaDatos import CargaArchivos
+from Project.CargaDatos import CargaDatasets
 
 # ==========================
 # PREPROCESAMIENTO
@@ -153,7 +153,7 @@ class Preprocesamiento:
         carpeta_processed = Path(carpeta_processed)
         carpeta_processed.mkdir(parents=True, exist_ok=True)
 
-        loader = CargaArchivos(carpeta_raw, nombre_modificado)
+        loader = CargaDatasets(carpeta_raw, nombre_modificado)
         df_modificado = loader.leer()
 
         df_final = Preprocesamiento.ejecutar(df_modificado,ventana_mediana=ventana_mediana,eliminar_datetime=eliminar_datetime,)
