@@ -191,3 +191,5 @@ cython_debug/
 
 client_secret_148902248893-128r4nb5g7dnpij8ooscnuejv4mbe37v.apps.googleusercontent.com.json
 .dvc/config
+
+/202502-equipo43_accessKeys.csv

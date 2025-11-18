@@ -1,14 +1,14 @@
 {
-  "execution_timestamp": "2025-11-17T17:40:44.377701",
+  "execution_timestamp": "2025-11-17T23:35:10.261365",
   "pipeline_status": "completed",
   "components": {
     "model": {
-      "path": "/Users/oscar.garcia/Library/Mobile Documents/com~apple~CloudDocs/Education/MNA_ITESM/5TrimSep2025Dic2025/MLOps/Proyecto_MLOps/MNA_MLOps/models/best_model_pipeline.joblib",
+      "path": "/Users/oscar.garcia/Library/Mobile Documents/com~apple~CloudDocs/Education/MNA_ITESM/5TrimSep2025Dic2025/MLOps/Proyecto_MLOps/MNA_MLOps_clean/models/best_model_pipeline.joblib",
       "exists": true,
       "size_mb": 2.42
     },
     "drift_report": {
-      "path": "/Users/oscar.garcia/Library/Mobile Documents/com~apple~CloudDocs/Education/MNA_ITESM/5TrimSep2025Dic2025/MLOps/Proyecto_MLOps/MNA_MLOps/reports/evidently/data_drift_report.html",
+      "path": "/Users/oscar.garcia/Library/Mobile Documents/com~apple~CloudDocs/Education/MNA_ITESM/5TrimSep2025Dic2025/MLOps/Proyecto_MLOps/MNA_MLOps_clean/reports/evidently/data_drift_report.html",
       "exists": true
     },
     "performance": {
