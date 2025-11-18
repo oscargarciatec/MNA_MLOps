@@ -258,9 +258,3 @@ def test_pipeline_end_to_end_f3(sample_data, temp_model_path):
     print(f"✅ Pipeline end-to-end completado:")
     print(f"   Train MSE: {mse_train:.4f}, R²: {r2_train:.4f}")
     print(f"   Test MSE: {mse_test:.4f}, R²: {r2_test:.4f}")
-
-# --- DOCUMENTACIÓN DE EJECUCIÓN ---
-# Para ejecutar todas las pruebas:
-# source venv/bin/activate && pytest -v tests/test_pipeline_f3.py
-# Para ejecutar con reporte de cobertura:
-# pytest --cov=. --cov-report=html tests/test_pipeline_f3.py

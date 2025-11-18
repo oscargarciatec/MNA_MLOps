@@ -38,6 +38,9 @@ Proyecto MLOps Equipo 43: Predicción del Consumo de Energía en la Ciudad de Te
 │                         generated with `pip freeze > requirements.txt`
 │
 ├── setup.cfg          <- Configuration file for flake8
+│                         generated with `pip freeze > requirements.txt`
+│
+├── reproducibility    <-  Code for reproducibility testing in a Docker container.
 │
 └── Project   <- Source code for use in this project.
     │
@@ -55,6 +58,7 @@ Proyecto MLOps Equipo 43: Predicción del Consumo de Energía en la Ciudad de Te
     │   └── train.py            <- Code to train models
     │
     └── plots.py                <- Code to create visualizations
+
 ```
 
 --------
@@ -269,7 +273,7 @@ El proyecto ha sido verificado en múltiples entornos para garantizar reproducib
 
 1. **MacOS (Desarrollo Local)**
    - Sistema: macOS Sonoma 14.6
-   - Python: 3.10
+   - Python: 3.13
    - RAM: 16GB
    - Procesador: Apple M1/M2
    - Estado: VERIFICADO
@@ -281,10 +285,19 @@ El proyecto ha sido verificado en múltiples entornos para garantizar reproducib
    - Estado: VERIFICADO
 
 3. **Docker Container (Producción)**
-   - Base Image: python:3.10-slim
+   - Base Image: python:3.13-slim
    - Plataforma: Google Cloud Run
    - Región: us-east1
    - Estado: VERIFICADO
+
+4. **Docker Container (Verificación de reproducibilidad de modelo)**
+   - Base Image: python:3.13-slim
+   - Plataforma: Docker
+   - Estado: VERIFICADO
+
+Nota: Para revisar el detalle de la verificación de reproducibilidad del modelo, revisar el README.md dentro de la carpeta `reproducibility`.
+
+
 
 #### Consistencia de Resultados
 
@@ -298,7 +311,7 @@ Los modelos entrenados en diferentes entornos producen resultados consistentes:
 
 1. **Pipeline Completo**:
    ```bash
-   python scripts/run_full_pipeline.py
+   python Project/run_full_pipeline.py
    ```
 
 2. **Pruebas Automatizadas**:
@@ -308,7 +321,7 @@ Los modelos entrenados en diferentes entornos producen resultados consistentes:
 
 3. **Verificación de Entorno**:
    ```bash
-   python scripts/validate_environment.py
+   python Project/validate_environment.py
    ```
 
 #### Versionamiento y Trazabilidad
@@ -448,7 +461,7 @@ El proyecto incluye un script maestro que orquesta todo el flujo MLOps automáti
 source venv/bin/activate
 
 # Ejecutar pipeline completo
-python scripts/run_mlops_complete.py
+python Project/run_mlops_complete.py
 ```
 
 #### ¿Qué hace el pipeline completo?
@@ -466,16 +479,16 @@ El script `run_mlops_complete.py` ejecuta 6 pasos secuenciales:
 
 ```bash
 # Pipeline completo (todas las etapas)
-python scripts/run_mlops_complete.py
+python Project/run_mlops_complete.py
 
 # Omitir tests (ejecución más rápida)
-python scripts/run_mlops_complete.py --skip-tests
+python Project/run_mlops_complete.py --skip-tests
 
 # Omitir monitoreo de drift
-python scripts/run_mlops_complete.py --skip-drift
+python Project/run_mlops_complete.py --skip-drift
 
 # Mostrar ayuda
-python scripts/run_mlops_complete.py --help
+python Project/run_mlops_complete.py --help
 ```
 
 #### Outputs generados
@@ -513,13 +526,13 @@ Si prefieres ejecutar componentes individuales:
 
 ```bash
 # Solo entrenamiento
-python scripts/run_full_pipeline.py
+python Project/run_full_pipeline.py
 
 # Solo drift monitoring
-python scripts/monitor_data_drift_evidently.py
+python Project/monitor_data_drift_evidently.py
 
 # Solo validación de entorno
-python scripts/validate_environment.py
+python Project/validate_environment.py
 
 # Solo tests
 pytest tests/ -v
@@ -540,7 +553,7 @@ El proyecto incluye monitoreo avanzado con Evidently.ai para detectar drift en d
 pip install evidently
 
 # Ejecutar monitoreo
-python scripts/monitor_data_drift_evidently.py
+python Project/monitor_data_drift_evidently.py
 ```
 
 #### Reportes Generados
