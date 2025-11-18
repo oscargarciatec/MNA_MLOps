@@ -196,7 +196,7 @@ def main(model_path_override: str = None):
         print(f"  MAPE < {target_mape}%:        {mape_status}")
         print(f"  R² > {target_r2}:          {r2_status}")
 
-        OUTPUT_DIR = Path("outputs")
+        OUTPUT_DIR = Path("/app/outputs")
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
         actual_metrics = {

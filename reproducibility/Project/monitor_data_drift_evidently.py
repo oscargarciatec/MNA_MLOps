@@ -355,7 +355,7 @@ def compare_performance(baseline_metrics: dict, drift_metrics: dict,
         json.dump(comparison, f, indent=2)
     print(f"\n[OK] Comparison saved: {comparison_path}")
 
-    return comparison
+    return comparisonå
 
 
 def main():
