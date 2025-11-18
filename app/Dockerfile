@@ -1,7 +1,7 @@
 # Dockerfile (located inside the 'app' folder)
 
 # Use a Python base image
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 # Set environment variables for the application
 ENV PYTHONUNBUFFERED True
